@@ -1,0 +1,6 @@
+setup.py
+rtabmap_msgs/__init__.py
+rtabmap_msgs.egg-info/PKG-INFO
+rtabmap_msgs.egg-info/SOURCES.txt
+rtabmap_msgs.egg-info/dependency_links.txt
+rtabmap_msgs.egg-info/top_level.txt

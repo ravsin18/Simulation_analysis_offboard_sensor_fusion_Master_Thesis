@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+<robot name="camera_robot">
+  <!-- Base Link -->
+
+  <link name="map"/>
+
+  <joint name="map_to_base" type="fixed">
+    <parent link="map"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+
+
+  <link name="base_link"/>
+
+  <link name="camera_robot_base_link">
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+
+  <joint name="world_to_camera" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_robot_base_link"/>
+    <origin xyz="-7.0 -4.0 1.0" rpy="0 0 0.785"/>  <!-- Adjust as needed -->
+  </joint>
+
+
+
+  <!-- Camera Body -->
+  <link name="camera_robot_camera_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.1 0.1"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <!-- Camera Optical Frame -->
+  <link name="camera_robot_camera_optical_frame"/>
+
+  <!-- Joints -->
+  <joint name="camera_robot_camera_to_optical" type="fixed">
+    <parent link="camera_robot_camera_link"/>
+    <child link="camera_robot_camera_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/> <!-- ROS optical frame alignment -->
+  </joint>
+
+  <joint name="camera_robot_base_joint" type="fixed">
+    <parent link="camera_robot_base_link"/>
+    <child link="camera_robot_camera_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo>
+    <static>true</static>
+  </gazebo>
+
+  <!-- Camera Sensor -->
+  <gazebo reference="camera_robot_camera_link">
+    <sensor name="camera_robot_sensor" type="depth">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10.0</update_rate>
+      <plugin name="camera_robot_controller" filename="libgazebo_ros_camera.so">            
+        <ros>
+          <namespace>camera_robot</namespace>
+          <remapping>~/image_raw:=/camera_robot/depth/image_raw</remapping>
+          <remapping>~/camera_info:=/camera_robot/depth/camera_info</remapping>
+          <remapping>~/points:=/camera_robot/depth/points</remapping>
+        </ros>
+        <frame_name>camera_robot_camera_optical_frame</frame_name>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>10</updateRate>
+        <queueSize>100</queueSize>
+        <horizontal_fov>1.57</horizontal_fov>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+  
+  <!-- Base Link -->
+  <link name="lidar_robot_base_link">
+    <inertial>
+      <mass value="0.1"/>  
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+
+
+
+  <joint name="world_to_lidar" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_robot_base_link"/>
+    <origin xyz="0 0 1" rpy="0 0 0"/>
+  </joint>
+
+
+  <!-- Lidar Base -->
+  <link name="lidar_robot_lidar_base_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+      <origin xyz="0 0 0"/>
+    </inertial>
+  </link>
+
+  <!-- Lidar Top -->
+  <link name="lidar_robot_lidar_top_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+      <origin xyz="0 0 0"/>
+    </inertial>
+  </link>
+
+  <!-- Joints -->
+  <joint name="lidar_robot_lidar_joint" type="fixed">
+    <parent link="lidar_robot_lidar_base_link"/>
+    <child link="lidar_robot_lidar_top_link"/>
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="lidar_robot_base_joint" type="fixed">
+    <parent link="lidar_robot_base_link"/>
+    <child link="lidar_robot_lidar_base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo>
+    <static>true</static>
+  </gazebo>
+
+  <!-- Lidar Sensor -->
+  <gazebo reference="lidar_robot_lidar_top_link">
+    <sensor type="ray" name="lidar_robot_velodyne">
+      <pose>0 0 0.5 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>10</update_rate>
+
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>220</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.142</min_angle>
+            <max_angle>3.142</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>32</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.535</min_angle>
+            <max_angle>0.186</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.3</min>
+          <max>50.0</max>
+          <resolution>0.001</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.008</stddev>
+        </noise>
+      </ray>
+
+      <plugin name="lidar_robot_scan" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>lidar_robot</namespace>
+          <remapping>~/scan:=/lidar_robot/velodyne_points</remapping>
+        </ros>
+        <output_type>sensor_msgs/PointCloud2</output_type>
+        <frame_name>lidar_robot_lidar_top_link</frame_name>
+        <organize_cloud>false</organize_cloud>
+        <min_range>0.9</min_range>
+        <max_range>50.0</max_range>
+        <gaussian_noise>0.008</gaussian_noise>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <link name="camera_robot_base_link_1">
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+
+  <joint name="world_to_camera_1" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_robot_base_link_1"/>
+    <origin xyz="5.0 4.0 1.0" rpy="0 0 3.92"/>  <!-- Adjust as needed -->
+  </joint>
+
+
+
+  <!-- Camera Body -->
+  <link name="camera_robot_camera_link_1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.2 0.1 0.1"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <!-- Camera Optical Frame -->
+  <link name="camera_robot_camera_optical_frame_1"/>
+
+  <!-- Joints -->
+  <joint name="camera_robot_camera_to_optical_1" type="fixed">
+    <parent link="camera_robot_camera_link_1"/>
+    <child link="camera_robot_camera_optical_frame_1"/>
+    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/> <!-- ROS optical frame alignment -->
+  </joint>
+
+  <joint name="camera_robot_base_joint_1" type="fixed">
+    <parent link="camera_robot_base_link_1"/>
+    <child link="camera_robot_camera_link_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo>
+    <static>true</static>
+  </gazebo>
+
+  <!-- Camera Sensor -->
+  <gazebo reference="camera_robot_camera_link_1">
+    <sensor name="camera_robot_sensor_1" type="depth">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10.0</update_rate>
+      <plugin name="camera_robot_controller" filename="libgazebo_ros_camera.so">            
+        <ros>
+          <namespace>camera_robot_1</namespace>
+          <remapping>~/image_raw:=/camera_robot/depth/image_raw_1</remapping>
+          <remapping>~/camera_info:=/camera_robot/depth/camera_info_1</remapping>
+          <remapping>~/points:=/camera_robot/depth/points_1</remapping>
+        </ros>
+        <frame_name>camera_robot_camera_optical_frame_1</frame_name>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>10</updateRate>
+        <queueSize>100</queueSize>
+        <horizontal_fov>1.57</horizontal_fov>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+</robot>
+

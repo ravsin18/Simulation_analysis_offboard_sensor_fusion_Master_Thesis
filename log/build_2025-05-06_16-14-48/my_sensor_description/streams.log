@@ -1,0 +1,31 @@
+[0.013s] Invoking command in '/home/singh/ros2_sensor_ws/build/my_sensor_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/singh/ros2_sensor_ws/install/rtabmap_python:/home/singh/install/my_robot_controller:/opt/ros/humble /usr/bin/cmake --build /home/singh/ros2_sensor_ws/build/my_sensor_description -- -j12 -l12
+[0.066s] Invoked command in '/home/singh/ros2_sensor_ws/build/my_sensor_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/singh/ros2_sensor_ws/install/rtabmap_python:/home/singh/install/my_robot_controller:/opt/ros/humble /usr/bin/cmake --build /home/singh/ros2_sensor_ws/build/my_sensor_description -- -j12 -l12
+[0.073s] Invoking command in '/home/singh/ros2_sensor_ws/build/my_sensor_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/singh/ros2_sensor_ws/install/rtabmap_python:/home/singh/install/my_robot_controller:/opt/ros/humble /usr/bin/cmake --install /home/singh/ros2_sensor_ws/build/my_sensor_description
+[0.078s] -- Install configuration: ""
+[0.078s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//urdf
+[0.078s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//urdf/lidar_camera_robot.urdf
+[0.078s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//launch
+[0.078s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//launch/sensor_Setup_ionic.launch.xml
+[0.078s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//launch/sensor_setup_rtab.launch.xml
+[0.078s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//launch/sensor_setup.launch.xml
+[0.078s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//rviz
+[0.079s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//rviz/sensor_config.rviz
+[0.079s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//worlds
+[0.079s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//worlds/test_world.world
+[0.079s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//script
+[0.079s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/ament_index/resource_index/package_run_dependencies/my_sensor_description
+[0.079s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/ament_index/resource_index/parent_prefix_path/my_sensor_description
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/environment/ament_prefix_path.sh
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/environment/ament_prefix_path.dsv
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/environment/path.sh
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/environment/path.dsv
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/local_setup.bash
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/local_setup.sh
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/local_setup.zsh
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/local_setup.dsv
+[0.080s] -- Installing: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/package.dsv
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/ament_index/resource_index/packages/my_sensor_description
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/cmake/my_sensor_descriptionConfig.cmake
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/cmake/my_sensor_descriptionConfig-version.cmake
+[0.080s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/package.xml
+[0.081s] Invoked command in '/home/singh/ros2_sensor_ws/build/my_sensor_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/singh/ros2_sensor_ws/install/rtabmap_python:/home/singh/install/my_robot_controller:/opt/ros/humble /usr/bin/cmake --install /home/singh/ros2_sensor_ws/build/my_sensor_description

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- Load URDF -->
+    <let name="urdf_path" 
+        value="$(find-pkg-share my_sensor_description)/urdf/lidar_camera_robot.urdf" />
+    <let name="my_config_path"
+        value="$(find-pkg-share my_sensor_description)/rviz/sensor_config.rviz" />
+
+    <!-- Robot State Publisher -->
+    <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
+        <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
+    </node>
+
+    <!-- Start Gazebo -->
+    <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py">
+        <arg name="world" value="$(find-pkg-share my_sensor_description)/worlds/test_world.world" />
+    </include>
+
+    <!-- Spawn robot in Gazebo -->
+    <node pkg="gazebo_ros" exec="spawn_entity.py"
+        args="-topic robot_description -entity my_robot" />
+
+    <!-- Start RViz -->
+    <node pkg="rviz2" exec="rviz2" output="screen"
+        args="-d $(var my_config_path)" />
+
+    <!-- RTAB-Map -->
+    <node pkg="rtabmap_ros" exec="rtabmap" name="rtabmap" output="screen">
+        <param name="frame_id" value="base_link" />
+        <param name="subscribe_depth" value="true" />
+        <param name="subscribe_scan" value="true" />
+        <param name="approx_sync" value="true" />
+        <param name="queue_size" value="30" />
+        <param name="Grid/FromDepth" value="true" />
+        <param name="Grid/3D" value="true" />
+        <param name="Grid/MaxDepth" value="10.0" />
+        <param name="Grid/RangeMax" value="10.0" />
+
+        <!-- Topic remaps -->
+        <remap from="rgb/image" to="/camera_robot/camera_robot_sensor/image_raw" />
+        <remap from="depth/image" to="/camera_robot/camera_robot_sensor/depth/image_raw" />
+        <remap from="rgb/camera_info" to="/camera_robot/camera_robot_sensor/camera_info" />
+        <remap from="scan" to="/lidar_robot/lidar_robot_scan/out" />
+    </node>
+
+</launch>
