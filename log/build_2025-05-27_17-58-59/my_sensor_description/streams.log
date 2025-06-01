@@ -1,0 +1,49 @@
+[0.011s] Invoking command in '/home/singh/ros2_sensor_ws/build/my_sensor_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/singh/rtab_ws/install/rtabmap_python:/home/singh/ros2_sensor_ws/install/yolov5_ros:/home/singh/ros2_sensor_ws/install/tf2_tools:/home/singh/ros2_sensor_ws/install/examples_tf2_py:/home/singh/ros2_sensor_ws/install/tf2_ros_py:/opt/ros/humble /usr/bin/cmake --build /home/singh/ros2_sensor_ws/build/my_sensor_description -- -j12 -l12
+[0.030s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.175s] -- Configuring done
+[0.177s] -- Generating done
+[0.179s] -- Build files have been written to: /home/singh/ros2_sensor_ws/build/my_sensor_description
+[0.195s] Invoked command in '/home/singh/ros2_sensor_ws/build/my_sensor_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/singh/rtab_ws/install/rtabmap_python:/home/singh/ros2_sensor_ws/install/yolov5_ros:/home/singh/ros2_sensor_ws/install/tf2_tools:/home/singh/ros2_sensor_ws/install/examples_tf2_py:/home/singh/ros2_sensor_ws/install/tf2_ros_py:/opt/ros/humble /usr/bin/cmake --build /home/singh/ros2_sensor_ws/build/my_sensor_description -- -j12 -l12
+[0.204s] Invoking command in '/home/singh/ros2_sensor_ws/build/my_sensor_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/singh/rtab_ws/install/rtabmap_python:/home/singh/ros2_sensor_ws/install/yolov5_ros:/home/singh/ros2_sensor_ws/install/tf2_tools:/home/singh/ros2_sensor_ws/install/examples_tf2_py:/home/singh/ros2_sensor_ws/install/tf2_ros_py:/opt/ros/humble /usr/bin/cmake --install /home/singh/ros2_sensor_ws/build/my_sensor_description
+[0.208s] -- Install configuration: ""
+[0.208s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//urdf
+[0.208s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//urdf/lidar_camera_robot.urdf
+[0.208s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//launch
+[0.208s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//launch/sensor_Setup_ionic.launch.xml
+[0.208s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//launch/sensor_setup_try.launch.xml
+[0.208s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//launch/sensor_setup_rtab_1.launch.xml
+[0.209s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//launch/sensor_setup_rtab.launch.xml
+[0.209s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//launch/sensor_setup.launch.xml
+[0.209s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//rviz
+[0.209s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//rviz/sensor_config.rviz
+[0.209s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//worlds
+[0.209s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//worlds/test_world.world
+[0.209s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//worlds/model
+[0.209s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//worlds/model/MaleVisitorWalk.dae
+[0.210s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//worlds/model/MaleVisitorWalk.dae:Zone.Identifier
+[0.210s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//worlds/test_world_human.world
+[0.210s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//scripts
+[0.210s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//scripts/point_cloud_merger.py
+[0.210s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//scripts/point_cloud_merger_1.py
+[0.210s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//scripts/point_cloud_merger_2.py
+[0.210s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//scripts/grid_map_fusion_node.py
+[0.210s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//nodes
+[0.211s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description//nodes/__init__.py
+[0.211s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/lib/my_sensor_description/point_cloud_merger.py
+[0.211s] -- Installing: /home/singh/ros2_sensor_ws/install/my_sensor_description/lib/my_sensor_description/point_cloud_merger_2.py
+[0.211s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/ament_index/resource_index/package_run_dependencies/my_sensor_description
+[0.211s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/ament_index/resource_index/parent_prefix_path/my_sensor_description
+[0.211s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/environment/ament_prefix_path.sh
+[0.211s] -- Installing: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/environment/ament_prefix_path.dsv
+[0.211s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/environment/path.sh
+[0.212s] -- Installing: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/environment/path.dsv
+[0.212s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/local_setup.bash
+[0.212s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/local_setup.sh
+[0.212s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/local_setup.zsh
+[0.212s] -- Installing: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/local_setup.dsv
+[0.212s] -- Installing: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/package.dsv
+[0.212s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/ament_index/resource_index/packages/my_sensor_description
+[0.212s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/cmake/my_sensor_descriptionConfig.cmake
+[0.213s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/cmake/my_sensor_descriptionConfig-version.cmake
+[0.213s] -- Up-to-date: /home/singh/ros2_sensor_ws/install/my_sensor_description/share/my_sensor_description/package.xml
+[0.214s] Invoked command in '/home/singh/ros2_sensor_ws/build/my_sensor_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/singh/rtab_ws/install/rtabmap_python:/home/singh/ros2_sensor_ws/install/yolov5_ros:/home/singh/ros2_sensor_ws/install/tf2_tools:/home/singh/ros2_sensor_ws/install/examples_tf2_py:/home/singh/ros2_sensor_ws/install/tf2_ros_py:/opt/ros/humble /usr/bin/cmake --install /home/singh/ros2_sensor_ws/build/my_sensor_description

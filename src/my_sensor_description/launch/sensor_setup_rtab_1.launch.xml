@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<launch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/ros2/launch/ros2-launch/launch/schema/launch.xsd">
+
+  <arg name="use_sim_time" default="true"/>
+
+  <!-- File paths -->
+  <let name="urdf_path" value="$(find-pkg-share my_sensor_description)/urdf/lidar_camera_robot.urdf"/>
+  <let name="my_config_path" value="$(find-pkg-share my_sensor_description)/rviz/sensor_config.rviz"/>
+  <let name="world_path" value="$(find-pkg-share my_sensor_description)/worlds/test_world_human.world"/>
+
+  <!-- Robot state publisher -->
+  <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
+    <param name="robot_description" value="$(command 'xacro $(var urdf_path)')"/>
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+  </node>
+
+  <!-- Start Gazebo -->
+  <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py">
+    <arg name="world" value="$(var world_path)"/>
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+  </include>
+
+  <!-- Spawn robot in Gazebo -->
+  <node pkg="gazebo_ros" exec="spawn_entity.py" output="screen"
+        args="-topic robot_description -entity my_robot -x 0 -y 0 -z 0"/>
+
+  <!-- RViz -->
+  <node pkg="rviz2" exec="rviz2" output="screen" args="-d $(var my_config_path)">
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+  </node>
+
+  <!-- RGBD Sync for camera 0 -->
+  <node pkg="rtabmap_sync" exec="rgbd_sync" name="rgbd_sync_0" output="screen">
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+    <param name="approx_sync" value="true"/>
+    <param name="queue_size" value="30"/>
+    <remap from="rgb/image" to="/camera_robot/camera_robot_sensor/image_raw"/>
+    <remap from="depth/image" to="/camera_robot/camera_robot_sensor/depth/image_raw"/>
+    <remap from="rgb/camera_info" to="/camera_robot/camera_robot_sensor/camera_info"/>
+    <remap from="rgbd_image" to="/rgbd_image0"/>
+  </node>
+
+  <!-- RGBD Sync for camera 1 -->
+  <node pkg="rtabmap_sync" exec="rgbd_sync" name="rgbd_sync_1" output="screen">
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+    <param name="approx_sync" value="true"/>
+    <param name="queue_size" value="30"/>
+    <remap from="rgb/image" to="/camera_robot_1/camera_robot_sensor_1/image_raw"/>
+    <remap from="depth/image" to="/camera_robot_1/camera_robot_sensor_1/depth/image_raw"/>
+    <remap from="rgb/camera_info" to="/camera_robot_1/camera_robot_sensor_1/camera_info"/>
+    <remap from="rgbd_image" to="/rgbd_image1"/>
+  </node>
+
+  <!-- RTAB-Map SLAM -->
+  <node pkg="rtabmap_slam" exec="rtabmap" name="rtabmap" output="screen">
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+    <remap from="rgbd_image0" to="/rgbd_image0"/>
+    <remap from="rgbd_image1" to="/rgbd_image1"/>
+    <remap from="scan" to="/lidar_robot/lidar_robot_scan/out"/>
+    <remap from="odom" to="/fake_odom"/>
+    <remap from="rtabmap/grid_map" to="/octomap_full"/>
+  </node>
+
+  <!-- Octomap Server -->
+  <node pkg="octomap_server" exec="octomap_server_node" output="screen">
+    <param name="frame_id" value="map"/>
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+    <remap from="/cloud_in" to="/rtabmap/cloud_map"/>
+    <param name="resolution" value="0.1"/>
+    <param name="sensor_model/max_range" value="10.0"/>
+    <param name="sensor_model/hit" value="0.7"/>
+    <param name="sensor_model/miss" value="0.4"/>
+    <param name="color_factor" value="1.0"/>
+  </node>
+
+  <!-- Fake Odometry -->
+  <node pkg="tf2_ros" exec="static_transform_publisher" name="fake_odom_pub" output="screen"
+        args="0 0 0 0 0 0 map base_link"/>
+
+</launch>

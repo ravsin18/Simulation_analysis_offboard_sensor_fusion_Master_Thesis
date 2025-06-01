@@ -43,7 +43,81 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description/" TYPE DIRECTORY FILES
+    "/home/singh/ros2_sensor_ws/src/my_sensor_description/urdf"
+    "/home/singh/ros2_sensor_ws/src/my_sensor_description/launch"
+    "/home/singh/ros2_sensor_ws/src/my_sensor_description/rviz"
+    "/home/singh/ros2_sensor_ws/src/my_sensor_description/worlds"
+    "/home/singh/ros2_sensor_ws/src/my_sensor_description/scripts"
+    "/home/singh/ros2_sensor_ws/src/my_sensor_description/nodes"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_sensor_description" TYPE PROGRAM FILES
+    "/home/singh/ros2_sensor_ws/src/my_sensor_description/scripts/point_cloud_merger.py"
+    "/home/singh/ros2_sensor_ws/src/my_sensor_description/scripts/point_cloud_merger_1.py"
+    "/home/singh/ros2_sensor_ws/src/my_sensor_description/scripts/point_cloud_merger_2.py"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/my_sensor_description")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/my_sensor_description")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description/environment" TYPE FILE FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description/environment" TYPE FILE FILES "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_environment_hooks/ament_prefix_path.dsv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description/environment" TYPE FILE FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description/environment" TYPE FILE FILES "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_environment_hooks/path.dsv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description" TYPE FILE FILES "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_environment_hooks/local_setup.bash")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description" TYPE FILE FILES "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_environment_hooks/local_setup.sh")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description" TYPE FILE FILES "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_environment_hooks/local_setup.zsh")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description" TYPE FILE FILES "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_environment_hooks/local_setup.dsv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description" TYPE FILE FILES "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_environment_hooks/package.dsv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_index/share/ament_index/resource_index/packages/my_sensor_description")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description/cmake" TYPE FILE FILES
+    "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_core/my_sensor_descriptionConfig.cmake"
+    "/home/singh/ros2_sensor_ws/build/my_sensor_description/ament_cmake_core/my_sensor_descriptionConfig-version.cmake"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/my_sensor_description" TYPE FILE FILES "/home/singh/ros2_sensor_ws/src/my_sensor_description/package.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

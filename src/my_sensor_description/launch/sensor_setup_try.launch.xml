@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<launch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/ros2/launch/ros2-launch/launch/schema/launch.xsd">
+    <!-- Set use_sim_time for all nodes -->
+    <arg name="use_sim_time" default="true" />
+
+    <!-- Load URDF -->
+    <let name="urdf_path" value="$(find-pkg-share my_sensor_description)/urdf/lidar_camera_robot.urdf" />
+    <let name="my_config_path" value="$(find-pkg-share my_sensor_description)/rviz/sensor_config.rviz" />
+
+    <!-- Robot State Publisher -->
+    <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
+        <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
+        <param name="use_sim_time" value="$(var use_sim_time)" />
+    </node>
+
+    <!-- Start Gazebo -->
+    <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py">
+        <arg name="world" value="$(find-pkg-share my_sensor_description)/worlds/test_world_human.world" />
+        <arg name="use_sim_time" value="$(var use_sim_time)" />
+    </include>
+
+    <!-- Spawn Robot in Gazebo -->
+    <node pkg="gazebo_ros" exec="spawn_entity.py" output="screen" args="-topic robot_description -entity my_robot -x 0 -y 0 -z 0" />
+
+    <!-- Start RViz -->
+    <node pkg="rviz2" exec="rviz2" output="screen" args="-d $(var my_config_path)">
+        <param name="use_sim_time" value="$(var use_sim_time)" />
+    </node>
+
+    <!--<node pkg="yolov5_ros" exec="yolov5_ros" output="screen" name="yolov5_ros">
+        <param name="model_path" value="/home/singh/.cache/ultralytics/yolov8n.pt" />
+        <remap from="/image_raw" to="/camera_robot_1/camera_robot_sensor_1/image_raw" />
+    </node>-->
+
+    <!-- Point Cloud Merger Node -->
+    <!--<node pkg="my_sensor_description" exec="point_cloud_merger_2.py" name="point_cloud_merger" output="screen">
+        <param name="use_sim_time" value="$(var use_sim_time)" />
+        <param name="output_topic" value="/merged_sensor_points" />
+        <param name="input_topics" value="[/camera_robot/camera_robot_sensor/points, /camera_robot_1/camera_robot_sensor_1/points, /lidar_robot/lidar_robot_scan/out]" />
+        <param name="output_frame" value="base_link" />
+    </node>-->
+
+
+    <!-- Octomap Server -->
+    <node pkg="octomap_server" exec="octomap_server_node" output="screen">
+        <param name="frame_id" value="base_link" />
+        <param name="use_sim_time" value="$(var use_sim_time)" />
+        <remap from="/cloud_in" to="/merged_sensor_points" />
+        <param name="resolution" value="0.1" />
+        <param name="sensor_model/max_range" value="10.0" />
+        <param name="sensor_model/hit" value="0.7" />
+        <param name="sensor_model/miss" value="0.4" />
+        <param name="color_factor" value="1.0" />
+    </node>
+</launch>

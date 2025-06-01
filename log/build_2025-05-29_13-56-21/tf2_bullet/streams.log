@@ -1,0 +1,82 @@
+[0.225s] Invoking command in '/home/singh/ros2_sensor_ws/build/tf2_bullet': AMENT_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:/home/singh/ros2_ws2/install/my_robot_bringup:/home/singh/ros2_ws2/install/my_robot_description:/home/singh/rtab_ws/install/rtabmap_msgs:/home/singh/turtlebot_ws/install/turtlebot3_simulations:/home/singh/turtlebot_ws/install/turtlebot3_gazebo:/home/singh/turtlebot_ws/install/turtlebot3_fake_node:/home/singh/ros2_ws2/src/install/my_robot_bringup:/home/singh/ros2_ws2/src/install/my_robot_description:/home/singh/ros2_ws4/install/gazebo_parking:/home/singh/ros2_sensor_ws/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/tf2_sensor_msgs:/home/singh/rtab_ws/install/rtabmap_python:/opt/ros/humble LD_LIBRARY_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros/lib:/home/singh/ros2_sensor_ws/install/tf2_msgs/lib:/home/singh/ros2_sensor_ws/install/tf2/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/singh/ros2_sensor_ws/install/tf2_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/singh/ros2_sensor_ws/src/geometry2/tf2_bullet -DCMAKE_INSTALL_PREFIX=/home/singh/ros2_sensor_ws/install/tf2_bullet
+[0.375s] -- The C compiler identification is GNU 11.4.0
+[0.792s] -- The CXX compiler identification is GNU 11.4.0
+[1.162s] -- Detecting C compiler ABI info
+[1.289s] -- Detecting C compiler ABI info - done
+[1.297s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.297s] -- Detecting C compile features
+[1.298s] -- Detecting C compile features - done
+[1.300s] -- Detecting CXX compiler ABI info
+[1.456s] -- Detecting CXX compiler ABI info - done
+[1.463s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.464s] -- Detecting CXX compile features
+[1.466s] -- Detecting CXX compile features - done
+[1.471s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.695s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.863s] -- Found geometry_msgs: 4.8.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[2.048s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[2.056s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[2.070s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[2.103s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.130s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.192s] -- Found tf2: 0.25.12 (/home/singh/ros2_sensor_ws/install/tf2/share/tf2/cmake)
+[2.206s] -- Found tf2_ros: 0.25.12 (/home/singh/ros2_sensor_ws/install/tf2_ros/share/tf2_ros/cmake)
+[2.327s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.333s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[2.381s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[2.400s] -- Looking for pthread.h
+[2.517s] -- Looking for pthread.h - found
+[2.518s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.637s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.639s] -- Found Threads: TRUE  
+[4.410s] -- Found Bullet: /usr/lib/x86_64-linux-gnu/libBulletDynamics.so  
+[4.417s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[4.419s] -- Found ament_cmake_cppcheck: 0.12.12 (/opt/ros/humble/share/ament_cmake_cppcheck/cmake)
+[4.560s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[4.572s] -- Added test 'copyright' to check source files copyright and LICENSE
+[4.574s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[4.574s] -- Configured cpplint exclude dirs and/or files: 
+[4.576s] -- Added test 'lint_cmake' to check CMake code style
+[4.577s] -- Added test 'uncrustify' to check C / C++ code style
+[4.577s] -- Configured uncrustify additional arguments: 
+[4.578s] -- Added test 'xmllint' to check XML markup files
+[4.584s] -- Configuring done
+[4.636s] -- Generating done
+[4.640s] -- Build files have been written to: /home/singh/ros2_sensor_ws/build/tf2_bullet
+[4.658s] Invoked command in '/home/singh/ros2_sensor_ws/build/tf2_bullet' returned '0': AMENT_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:/home/singh/ros2_ws2/install/my_robot_bringup:/home/singh/ros2_ws2/install/my_robot_description:/home/singh/rtab_ws/install/rtabmap_msgs:/home/singh/turtlebot_ws/install/turtlebot3_simulations:/home/singh/turtlebot_ws/install/turtlebot3_gazebo:/home/singh/turtlebot_ws/install/turtlebot3_fake_node:/home/singh/ros2_ws2/src/install/my_robot_bringup:/home/singh/ros2_ws2/src/install/my_robot_description:/home/singh/ros2_ws4/install/gazebo_parking:/home/singh/ros2_sensor_ws/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/tf2_sensor_msgs:/home/singh/rtab_ws/install/rtabmap_python:/opt/ros/humble LD_LIBRARY_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros/lib:/home/singh/ros2_sensor_ws/install/tf2_msgs/lib:/home/singh/ros2_sensor_ws/install/tf2/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/singh/ros2_sensor_ws/install/tf2_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/singh/ros2_sensor_ws/src/geometry2/tf2_bullet -DCMAKE_INSTALL_PREFIX=/home/singh/ros2_sensor_ws/install/tf2_bullet
+[4.660s] Invoking command in '/home/singh/ros2_sensor_ws/build/tf2_bullet': AMENT_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:/home/singh/ros2_ws2/install/my_robot_bringup:/home/singh/ros2_ws2/install/my_robot_description:/home/singh/rtab_ws/install/rtabmap_msgs:/home/singh/turtlebot_ws/install/turtlebot3_simulations:/home/singh/turtlebot_ws/install/turtlebot3_gazebo:/home/singh/turtlebot_ws/install/turtlebot3_fake_node:/home/singh/ros2_ws2/src/install/my_robot_bringup:/home/singh/ros2_ws2/src/install/my_robot_description:/home/singh/ros2_ws4/install/gazebo_parking:/home/singh/ros2_sensor_ws/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/tf2_sensor_msgs:/home/singh/rtab_ws/install/rtabmap_python:/opt/ros/humble LD_LIBRARY_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros/lib:/home/singh/ros2_sensor_ws/install/tf2_msgs/lib:/home/singh/ros2_sensor_ws/install/tf2/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/singh/ros2_sensor_ws/install/tf2_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/singh/ros2_sensor_ws/build/tf2_bullet -- -j12 -l12
+[4.731s] [ 16%] [32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o[0m
+[4.736s] [ 33%] [32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o[0m
+[5.775s] [ 50%] [32m[1mLinking CXX static library libgtest_main.a[0m
+[5.840s] [ 50%] Built target gtest_main
+[11.439s] [ 66%] [32m[1mLinking CXX static library libgtest.a[0m
+[11.561s] [ 66%] Built target gtest
+[11.593s] [ 83%] [32mBuilding CXX object CMakeFiles/test_bullet.dir/test/test_tf2_bullet.cpp.o[0m
+[17.692s] [100%] [32m[1mLinking CXX executable test_bullet[0m
+[18.097s] [100%] Built target test_bullet
+[18.121s] Invoked command in '/home/singh/ros2_sensor_ws/build/tf2_bullet' returned '0': AMENT_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:/home/singh/ros2_ws2/install/my_robot_bringup:/home/singh/ros2_ws2/install/my_robot_description:/home/singh/rtab_ws/install/rtabmap_msgs:/home/singh/turtlebot_ws/install/turtlebot3_simulations:/home/singh/turtlebot_ws/install/turtlebot3_gazebo:/home/singh/turtlebot_ws/install/turtlebot3_fake_node:/home/singh/ros2_ws2/src/install/my_robot_bringup:/home/singh/ros2_ws2/src/install/my_robot_description:/home/singh/ros2_ws4/install/gazebo_parking:/home/singh/ros2_sensor_ws/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/tf2_sensor_msgs:/home/singh/rtab_ws/install/rtabmap_python:/opt/ros/humble LD_LIBRARY_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros/lib:/home/singh/ros2_sensor_ws/install/tf2_msgs/lib:/home/singh/ros2_sensor_ws/install/tf2/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/singh/ros2_sensor_ws/install/tf2_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/singh/ros2_sensor_ws/build/tf2_bullet -- -j12 -l12
+[18.129s] Invoking command in '/home/singh/ros2_sensor_ws/build/tf2_bullet': AMENT_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:/home/singh/ros2_ws2/install/my_robot_bringup:/home/singh/ros2_ws2/install/my_robot_description:/home/singh/rtab_ws/install/rtabmap_msgs:/home/singh/turtlebot_ws/install/turtlebot3_simulations:/home/singh/turtlebot_ws/install/turtlebot3_gazebo:/home/singh/turtlebot_ws/install/turtlebot3_fake_node:/home/singh/ros2_ws2/src/install/my_robot_bringup:/home/singh/ros2_ws2/src/install/my_robot_description:/home/singh/ros2_ws4/install/gazebo_parking:/home/singh/ros2_sensor_ws/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/tf2_sensor_msgs:/home/singh/rtab_ws/install/rtabmap_python:/opt/ros/humble LD_LIBRARY_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros/lib:/home/singh/ros2_sensor_ws/install/tf2_msgs/lib:/home/singh/ros2_sensor_ws/install/tf2/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/singh/ros2_sensor_ws/install/tf2_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/singh/ros2_sensor_ws/build/tf2_bullet
+[18.138s] -- Install configuration: ""
+[18.139s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/include/tf2_bullet
+[18.141s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/include/tf2_bullet/tf2_bullet
+[18.142s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/include/tf2_bullet/tf2_bullet/tf2_bullet.h
+[18.142s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/include/tf2_bullet/tf2_bullet/tf2_bullet.hpp
+[18.144s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/ament_index/resource_index/package_run_dependencies/tf2_bullet
+[18.145s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/ament_index/resource_index/parent_prefix_path/tf2_bullet
+[18.146s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/environment/ament_prefix_path.sh
+[18.147s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/environment/ament_prefix_path.dsv
+[18.147s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/environment/path.sh
+[18.148s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/environment/path.dsv
+[18.148s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/local_setup.bash
+[18.148s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/local_setup.sh
+[18.149s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/local_setup.zsh
+[18.149s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/local_setup.dsv
+[18.150s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/package.dsv
+[18.150s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/ament_index/resource_index/packages/tf2_bullet
+[18.151s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/cmake/export_tf2_bulletExport.cmake
+[18.151s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/cmake/bullet-extras.cmake
+[18.152s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/cmake/ament_cmake_export_targets-extras.cmake
+[18.152s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/cmake/tf2_bulletConfig.cmake
+[18.152s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/cmake/tf2_bulletConfig-version.cmake
+[18.152s] -- Installing: /home/singh/ros2_sensor_ws/install/tf2_bullet/share/tf2_bullet/package.xml
+[18.155s] Invoked command in '/home/singh/ros2_sensor_ws/build/tf2_bullet' returned '0': AMENT_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros:/home/singh/ros2_sensor_ws/install/tf2_msgs:/home/singh/ros2_sensor_ws/install/tf2:/home/singh/ros2_ws2/install/my_robot_bringup:/home/singh/ros2_ws2/install/my_robot_description:/home/singh/rtab_ws/install/rtabmap_msgs:/home/singh/turtlebot_ws/install/turtlebot3_simulations:/home/singh/turtlebot_ws/install/turtlebot3_gazebo:/home/singh/turtlebot_ws/install/turtlebot3_fake_node:/home/singh/ros2_ws2/src/install/my_robot_bringup:/home/singh/ros2_ws2/src/install/my_robot_description:/home/singh/ros2_ws4/install/gazebo_parking:/home/singh/ros2_sensor_ws/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/my_sensor_description:/home/singh/ros2_sensor_ws/src/install/tf2_sensor_msgs:/home/singh/rtab_ws/install/rtabmap_python:/opt/ros/humble LD_LIBRARY_PATH=/home/singh/ros2_sensor_ws/install/tf2_ros/lib:/home/singh/ros2_sensor_ws/install/tf2_msgs/lib:/home/singh/ros2_sensor_ws/install/tf2/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/singh/ros2_sensor_ws/install/tf2_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/singh/ros2_sensor_ws/build/tf2_bullet

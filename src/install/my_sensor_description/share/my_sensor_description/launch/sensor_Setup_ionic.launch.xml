@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<launch>
+    <!-- Load URDF -->
+    <let name="urdf_path" 
+        value="$(find-pkg-share my_sensor_description)/urdf/lidar_camera_robot.urdf"  />
+    <let name="my_config_path"
+        value="$(find-pkg-share my_sensor_description)/rviz/sensor_config.rviz" />
+
+    <node pkg="robot_state_publisher" exec="robot_state_publisher" output="screen">
+        <param name="robot_description" 
+            value="$(command 'xacro $(var urdf_path)')"/>
+        
+
+    </node>
+
+   
+
+    
+    <!-- Start Gazebo -->
+    <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py">
+        <arg name="world" value="$(find-pkg-share my_sensor_description)/worlds/test_world.world" />
+        
+    </include>
+
+    <node pkg="gazebo_ros" exec="spawn_entity.py"
+        args="-topic robot_description -entity my_robot"/>
+
+    <!-- Start RViz -->
+    <node pkg="rviz2" exec="rviz2" output="screen" 
+         args="-d $(var my_config_path)"/>
+        
+    
+
+    <!-- Start Octomap Server -->
+    <node pkg="octomap_server" exec="octomap_server_node" output="screen">
+        <param name="frame_id" value="base_link"/>
+        <remap from="/cloud_in" to="/lidar_robot/lidar_robot_scan/out"/>
+        <!--<remap from="/cloud_in" to="/merged_camera_points"/>-->
+        <param name="resolution" value="0.1"/>
+        <!--<param name="frame_id" value="map"/>-->
+        
+        <param name="sensor_model/max_range" value="10.0"/>
+        <param name="sensor_model/hit" value="0.7"/>
+        <param name="sensor_model/miss" value="0.4"/>
+        <param name="color_factor" value="1.0"/>
+    </node>
+
+
+
+
+    <!--<node pkg="$(find-pkg-share my_sensor_description)/nodes/point_cloud_merger.py" exec="point_cloud_merger" output="screen"/>
+-->
+
+</launch>

@@ -1,0 +1,55 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/singh/ros2_sensor_ws/src/build/my_sensor_description
+-- Install configuration: ""
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//urdf
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//urdf/lidar_camera_robot.urdf
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//launch
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//launch/sensor_Setup_ionic.launch.xml
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//launch/sensor_setup_try.launch.xml
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//launch/sensor_setup_rtab.launch.xml
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//launch/sensor_setup.launch.xml
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//rviz
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//rviz/sensor_config.rviz
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//worlds
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//worlds/test_world.world
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//worlds/model
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//worlds/model/MaleVisitorWalk.dae
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//worlds/model/MaleVisitorWalk.dae:Zone.Identifier
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//worlds/test_world_human.world
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//scripts
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//scripts/point_cloud_merger.py
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//scripts/point_cloud_merger_1.py
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//scripts/point_cloud_merger_2.py
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//nodes
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description//nodes/__init__.py
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/lib/my_sensor_description/point_cloud_merger.py
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/ament_index/resource_index/package_run_dependencies/my_sensor_description
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/ament_index/resource_index/parent_prefix_path/my_sensor_description
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/environment/ament_prefix_path.sh
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/environment/ament_prefix_path.dsv
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/environment/path.sh
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/environment/path.dsv
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/local_setup.bash
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/local_setup.sh
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/local_setup.zsh
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/local_setup.dsv
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/package.dsv
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/ament_index/resource_index/packages/my_sensor_description
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/cmake/my_sensor_descriptionConfig.cmake
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/cmake/my_sensor_descriptionConfig-version.cmake
+-- Installing: /home/singh/ros2_sensor_ws/src/install/my_sensor_description/share/my_sensor_description/package.xml
