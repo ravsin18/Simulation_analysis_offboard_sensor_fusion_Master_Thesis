@@ -1029,7 +1029,7 @@
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
-    <actor name="walking_human">
+    <!--<actor name="walking_human">
   <!-- Initial position and orientation -->
         <pose>0 0 0 0 0 0</pose>
   
@@ -1056,22 +1056,27 @@
             <trajectory id="0" type="walking">
                 <waypoint>
                     <time>0</time>              <!-- Start time in seconds -->
-                    <pose>0 0 0 0 0 0</pose>    <!-- x y z roll pitch yaw -->
+                    <pose>-6 3 0 0 0 0</pose>    <!-- x y z roll pitch yaw -->
                 </waypoint>
                 <waypoint>
                     <time>10</time>
-                    <pose>5 0 0 0 0 0</pose>    <!-- Move 5m in x-direction in 10 sec -->
+                    <pose>4 3 0 0 0 0</pose>    <!-- Move 5m in x-direction in 10 sec -->
                 </waypoint>
                 <waypoint>
                     <time>20</time>
-                    <pose>2 2 0 0 0 1.57</pose>  <!-- Then move in y-direction and rotate -->
+                    <pose>4 -3 0 0 0 1.57</pose>  <!-- Then move in y-direction and rotate -->
                 </waypoint>
                 <waypoint>
                     <time>30</time>
-                    <pose>0 2 0 0 0 3.14</pose>  <!-- Return in x-direction -->
+                    <pose>-6 -3 0 0 0 3.14</pose>  <!-- Return in x-direction -->
+                </waypoint>
+                <waypoint>
+                    <time>40</time>
+                    <pose>-6 3 0 0 0 3.14</pose>  <!-- Return in x-direction -->
                 </waypoint>
             </trajectory>
         </script>
-    </actor>
+    </actor>-->
+
   </world>
 </sdf>

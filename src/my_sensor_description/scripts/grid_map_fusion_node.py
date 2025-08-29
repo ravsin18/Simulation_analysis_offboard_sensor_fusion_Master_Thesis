@@ -1,101 +1,116 @@
+#!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import PointCloud2
-from grid_map_msgs.msg import GridMap
-from std_msgs.msg import Header
-import numpy as np
-import tf2_ros
-import tf2_sensor_msgs.tf2_sensor_msgs as tf2_sensor_msgs
 import sensor_msgs_py.point_cloud2 as pc2
+from sensor_msgs.msg import PointCloud2, PointField
+import tf2_ros
+from tf2_sensor_msgs.tf2_sensor_msgs import do_transform_cloud
+import numpy as np
 
-class GridMapFusionNode(Node):
+
+class PointCloudMerger(Node):
     def __init__(self):
-        super().__init__('grid_map_fusion_node')
+        super().__init__('point_cloud_merger')
 
-        # Map parameters
-        self.map_size = 10.0  # meters
-        self.resolution = 0.1  # meters per cell
-        self.grid_cells = int(self.map_size / self.resolution)
-        self.origin = -self.map_size / 2  # center the map
-
-        # Log-odds parameters
-        self.log_odds_occ = np.log(0.7 / 0.3)
-        self.log_odds_free = np.log(0.3 / 0.7)
-        self.log_odds_max = np.log(0.97 / 0.03)
-        self.log_odds_min = np.log(0.03 / 0.97)
-
-        # Initialize grid
-        self.log_odds_grid = np.zeros((self.grid_cells, self.grid_cells))
-
-        # TF buffer
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
 
-        # Subscriptions
-        self.create_subscription(PointCloud2, '/lidar_robot/lidar_robot_scan/out', self.pointcloud_callback, 10)
-        self.create_subscription(PointCloud2, '/camera_robot/camera_robot_sensor/points', self.pointcloud_callback, 10)
-        self.create_subscription(PointCloud2, '/camera_robot_1/camera_robot_sensor_1/points', self.pointcloud_callback, 10)
+        self.topic_list = [
+            '/camera_robot/camera_robot_sensor/points',
+            '/camera_robot_1/camera_robot_sensor_1/points',
+            '/lidar_robot/lidar_robot_scan/out'
+        ]
 
-        # Publisher
-        self.grid_pub = self.create_publisher(GridMap, '/fused_occupancy_map', 10)
+        self.target_frame = 'map'
+        self.clouds = {}
+        self._subs = []
 
-    def pointcloud_callback(self, msg):
-        try:
-            transform = self.tf_buffer.lookup_transform('map', msg.header.frame_id, rclpy.time.Time())
-            cloud_transformed = tf2_sensor_msgs.do_transform_cloud(msg, transform)
-        except Exception as e:
-            self.get_logger().warn(f"TF transform failed: {e}")
+        for topic in self.topic_list:
+            self.clouds[topic] = None
+            sub = self.create_subscription(PointCloud2, topic, self.make_callback(topic), 10)
+            self._subs.append(sub)
+
+        self.pub = self.create_publisher(PointCloud2, '/merged_sensor_points', 10)
+        self.create_timer(1.0, self.merge_and_publish)  # 1 Hz publishing
+
+    def make_callback(self, topic_name):
+        def callback(msg):
+            try:
+                transform = self.tf_buffer.lookup_transform(
+                    self.target_frame,
+                    msg.header.frame_id,
+                    rclpy.time.Time()
+                )
+
+                sanitized_cloud = self.strip_to_xyz(msg)
+                transformed_cloud = do_transform_cloud(sanitized_cloud, transform)
+                transformed_cloud.header.stamp = self.get_clock().now().to_msg()
+                transformed_cloud.header.frame_id = self.target_frame
+
+                self.clouds[topic_name] = transformed_cloud
+            except Exception as e:
+                self.get_logger().warn(f"[{topic_name}] Failed to transform: {e}")
+        return callback
+
+    def strip_to_xyz(self, cloud):
+        """Sanitize the cloud to contain only x/y/z float32 points and skip NaN/inf."""
+        points = []
+        for pt in pc2.read_points(cloud, field_names=["x", "y", "z"], skip_nans=True):
+            if all(np.isfinite(pt)) and len(pt) == 3:
+                points.append((float(pt[0]), float(pt[1]), float(pt[2])))
+
+        # Limit number of points for performance
+        MAX_POINTS = 50000
+        if len(points) > MAX_POINTS:
+            self.get_logger().warn(f"Clipping input cloud to {MAX_POINTS} points")
+            points = points[:MAX_POINTS]
+
+        fields = [
+            PointField(name='x', offset=0, datatype=PointField.FLOAT32, count=1),
+            PointField(name='y', offset=4, datatype=PointField.FLOAT32, count=1),
+            PointField(name='z', offset=8, datatype=PointField.FLOAT32, count=1),
+        ]
+        return pc2.create_cloud(cloud.header, fields, points)
+
+    def merge_and_publish(self):
+        if not all(self.clouds.values()):
+            self.get_logger().info('Waiting for all clouds...')
             return
 
-        points = pc2.read_points(cloud_transformed, field_names=("x", "y", "z"), skip_nans=True)
+        try:
+            all_points = []
+            for cloud in self.clouds.values():
+                for pt in pc2.read_points(cloud, field_names=("x", "y", "z"), skip_nans=True):
+                    if all(np.isfinite(pt)) and len(pt) == 3:
+                        all_points.append((float(pt[0]), float(pt[1]), float(pt[2])))
 
-        for p in points:
-            x, y, z = p
-            if z < 0.2 or z > 3.0:
-                continue
-            i, j = self.xy_to_grid(x, y)
-            if not self.valid_cell(i, j):
-                continue
-            self.log_odds_grid[i, j] += self.log_odds_occ
-            self.log_odds_grid[i, j] = np.clip(self.log_odds_grid[i, j], self.log_odds_min, self.log_odds_max)
+            # Safety limit on total points
+            MAX_TOTAL_POINTS = 80000
+            if len(all_points) > MAX_TOTAL_POINTS:
+                self.get_logger().warn(f"Merged cloud trimmed to {MAX_TOTAL_POINTS} points")
+                all_points = all_points[:MAX_TOTAL_POINTS]
 
-        self.publish_grid()
+            header = next(iter(self.clouds.values())).header
+            header.stamp = self.get_clock().now().to_msg()
+            header.frame_id = self.target_frame
 
-    def xy_to_grid(self, x, y):
-        i = int((x - self.origin) / self.resolution)
-        j = int((y - self.origin) / self.resolution)
-        return i, j
+            merged_cloud = pc2.create_cloud_xyz32(header, all_points)
+            merged_cloud.is_dense = True  # Required for OctoMap
 
-    def valid_cell(self, i, j):
-        return 0 <= i < self.grid_cells and 0 <= j < self.grid_cells
+            self.pub.publish(merged_cloud)
+            self.get_logger().info(f"Published merged cloud with {len(all_points)} points (Dense: True)")
 
-    def publish_grid(self):
-        grid_msg = GridMap()
-        grid_msg.info.resolution = self.resolution
-        grid_msg.info.length_x = self.map_size
-        grid_msg.info.length_y = self.map_size
-        grid_msg.info.pose.position.x = 0.0
-        grid_msg.info.pose.position.y = 0.0
-        grid_msg.info.pose.position.z = 0.0
-        grid_msg.info.pose.orientation.w = 1.0
+        except Exception as e:
+            self.get_logger().error(f"Failed to merge clouds: {e}")
 
-        header = Header()
-        header.stamp = self.get_clock().now().to_msg()
-        header.frame_id = 'map'
-        grid_msg.header = header
-
-        prob_grid = 1.0 - 1.0 / (1.0 + np.exp(self.log_odds_grid))
-        grid_msg.layers.append('occupancy')
-        grid_msg.data.append(prob_grid.flatten().tolist())
-
-        self.grid_pub.publish(grid_msg)
 
 def main(args=None):
     rclpy.init(args=args)
-    node = GridMapFusionNode()
+    node = PointCloudMerger()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()

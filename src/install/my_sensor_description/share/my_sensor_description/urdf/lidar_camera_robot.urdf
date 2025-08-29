@@ -1,6 +1,44 @@
 <?xml version="1.0"?>
-<robot name="camera_robot">
+<robot name="camera_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- Base Link -->
+<!--**************Camera **********-->
+  <xacro:property name="camera_x" value="-6.5"/>
+  <xacro:property name="camera_y" value="2.0"/>
+  <xacro:property name="camera_z" value="7.5"/>
+
+  <!-- ✅ Define rotation variables (in radians) -->
+  <xacro:property name="camera_roll"  value="0.0"/>
+  <xacro:property name="camera_pitch" value="0.78"/>
+  <xacro:property name="camera_yaw"   value="0.0"/>
+<!--*************Camera_1********** -->
+  <xacro:property name="camera_1_x" value="6.5"/>
+  <xacro:property name="camera_1_y" value="1.0"/>
+  <xacro:property name="camera_1_z" value="7.5"/>
+
+  <!-- ✅ Define orientation variables (in radians) -->
+  <xacro:property name="camera_1_roll"  value="0.0"/>
+  <xacro:property name="camera_1_pitch" value="0.78"/>
+  <xacro:property name="camera_1_yaw"   value="3.14"/>
+
+    <!--********Lidar************ -->
+  <xacro:property name="lidar_x" value="0.0"/>
+  <xacro:property name="lidar_y" value="0.0"/>
+  <xacro:property name="lidar_z" value="1.0"/>
+
+  <!-- ✅ Define orientation variables -->
+  <xacro:property name="lidar_roll"  value="0.0"/>
+  <xacro:property name="lidar_pitch" value="0.0"/>
+  <xacro:property name="lidar_yaw"   value="0.0"/>
+
+<!-- ************Lidar_1*********** -->
+  <xacro:property name="lidar_1_x" value="-4.5"/>
+  <xacro:property name="lidar_1_y" value="0.0"/>
+  <xacro:property name="lidar_1_z" value="2.0"/>
+
+  <!-- ✅ Define orientation variables -->
+  <xacro:property name="lidar_1_roll"  value="0.0"/>
+  <xacro:property name="lidar_1_pitch" value="0.0"/>
+  <xacro:property name="lidar_1_yaw"   value="0.0"/>
 
   <link name="map"/>
 
@@ -26,7 +64,8 @@
   <joint name="world_to_camera" type="fixed">
     <parent link="base_link"/>
     <child link="camera_robot_base_link"/>
-    <origin xyz="-7.0 -4.0 1.0" rpy="0 0 0.785"/>  <!-- Adjust as needed -->
+    <!--<origin xyz="-7.0 -4.0 1.0" rpy="0 0 0.785"/> --> <!-- Adjust as needed -->
+    <origin xyz="${camera_x} ${camera_y} ${camera_z}" rpy="${camera_roll} ${camera_pitch} ${camera_yaw}"/>
   </joint>
 
 
@@ -78,8 +117,28 @@
   <gazebo reference="camera_robot_camera_link">
     <sensor name="camera_robot_sensor" type="depth">
       <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
+      <visualize>True</visualize>
       <update_rate>10.0</update_rate>
+          <!-- ✅ Define depth camera settings -->
+      <camera>
+        <horizontal_fov>1.57</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>15</far>
+        </clip>
+
+        <!-- ✅ Add noise to depth readings -->
+        <noise>
+          <type>gaussian</type>
+          <mean>0.2</mean>
+          <stddev>0.9</stddev> <!-- Set standard deviation here -->
+        </noise>
+      </camera>
       <plugin name="camera_robot_controller" filename="libgazebo_ros_camera.so">            
         <ros>
           <namespace>camera_robot</namespace>
@@ -87,6 +146,7 @@
           <remapping>~/camera_info:=/camera_robot/depth/camera_info</remapping>
           <remapping>~/points:=/camera_robot/depth/points</remapping>
         </ros>
+        <use_sim_time>true</use_sim_time>
         <frame_name>camera_robot_camera_optical_frame</frame_name>
         <alwaysOn>true</alwaysOn>
         <updateRate>10</updateRate>
@@ -113,7 +173,7 @@
   <joint name="world_to_lidar" type="fixed">
     <parent link="base_link"/>
     <child link="lidar_robot_base_link"/>
-    <origin xyz="0 0 1" rpy="0 0 0"/>
+    <origin xyz="${lidar_x} ${lidar_y} ${lidar_z}" rpy="${lidar_roll} ${lidar_pitch} ${lidar_yaw}"/>
   </joint>
 
 
@@ -202,12 +262,12 @@
         </scan>
         <range>
           <min>0.3</min>
-          <max>50.0</max>
+          <max>10.0</max>
           <resolution>0.001</resolution>
         </range>
         <noise>
           <type>gaussian</type>
-          <mean>0.0</mean>
+          <mean>0.1</mean>
           <stddev>0.008</stddev>
         </noise>
       </ray>
@@ -222,7 +282,7 @@
         <organize_cloud>false</organize_cloud>
         <min_range>0.9</min_range>
         <max_range>50.0</max_range>
-        <gaussian_noise>0.008</gaussian_noise>
+        <gaussian_noise>0.00</gaussian_noise>
       </plugin>
     </sensor>
   </gazebo>
@@ -239,7 +299,8 @@
   <joint name="world_to_camera_1" type="fixed">
     <parent link="base_link"/>
     <child link="camera_robot_base_link_1"/>
-    <origin xyz="5.0 4.0 1.0" rpy="0 0 3.92"/>  <!-- Adjust as needed -->
+    <!--<origin xyz="5.0 4.0 1.0" rpy="0 0 3.92"/>-->  <!-- Adjust as needed -->
+    <origin xyz="${camera_1_x} ${camera_1_y} ${camera_1_z}" rpy="${camera_1_roll} ${camera_1_pitch} ${camera_1_yaw}"/>
   </joint>
 
 
@@ -291,8 +352,27 @@
   <gazebo reference="camera_robot_camera_link_1">
     <sensor name="camera_robot_sensor_1" type="depth">
       <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
+      <visualize>True</visualize>
       <update_rate>10.0</update_rate>
+      <camera>
+        <horizontal_fov>1.57</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>15</far>
+        </clip>
+
+        <!-- ✅ Add noise to depth readings -->
+        <noise>
+          <type>gaussian</type>
+          <mean>0.9</mean>
+          <stddev>0.8</stddev> <!-- Set standard deviation here -->
+        </noise>
+      </camera>
       <plugin name="camera_robot_controller" filename="libgazebo_ros_camera.so">            
         <ros>
           <namespace>camera_robot_1</namespace>
@@ -300,11 +380,141 @@
           <remapping>~/camera_info:=/camera_robot/depth/camera_info_1</remapping>
           <remapping>~/points:=/camera_robot/depth/points_1</remapping>
         </ros>
+        <use_sim_time>true</use_sim_time>
         <frame_name>camera_robot_camera_optical_frame_1</frame_name>
         <alwaysOn>true</alwaysOn>
         <updateRate>10</updateRate>
         <queueSize>100</queueSize>
         <horizontal_fov>1.57</horizontal_fov>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+    <!-- Base Link -->
+  <link name="lidar_robot_base_link_1">
+    <inertial>
+      <mass value="0.1"/>  
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+
+
+
+  <joint name="world_to_lidar_1" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_robot_base_link_1"/>
+    <origin xyz="${lidar_1_x} ${lidar_1_y} ${lidar_1_z}" rpy="${lidar_1_roll} ${lidar_1_pitch} ${lidar_1_yaw}"/>
+  </joint>
+
+
+  <!-- Lidar Base -->
+  <link name="lidar_robot_lidar_base_link_1">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+      <origin xyz="0 0 0"/>
+    </inertial>
+  </link>
+
+  <!-- Lidar Top -->
+  <link name="lidar_robot_lidar_top_link_1">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+      <origin xyz="0 0 0"/>
+    </inertial>
+  </link>
+
+  <!-- Joints -->
+  <joint name="lidar_robot_lidar_joint_1" type="fixed">
+    <parent link="lidar_robot_lidar_base_link_1"/>
+    <child link="lidar_robot_lidar_top_link_1"/>
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="lidar_robot_base_joint_1" type="fixed">
+    <parent link="lidar_robot_base_link_1"/>
+    <child link="lidar_robot_lidar_base_link_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo>
+    <static>true</static>
+  </gazebo>
+
+  <!-- Lidar Sensor -->
+  <gazebo reference="lidar_robot_lidar_top_link_1">
+    <sensor type="ray" name="lidar_robot_velodyne_1">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>10</update_rate>
+
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>220</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.142</min_angle>
+            <max_angle>3.142</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>32</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.535</min_angle>
+            <max_angle>0.186</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.3</min>
+          <max>10.0</max>
+          <resolution>0.001</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.008</stddev>
+        </noise>
+      </ray>
+
+      <plugin name="lidar_robot_scan" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>lidar_robot_1</namespace>
+          <remapping>~/scan:=/lidar_robot_1/velodyne_points</remapping>
+        </ros>
+        <output_type>sensor_msgs/PointCloud2</output_type>
+        <frame_name>lidar_robot_lidar_top_link_1</frame_name>
+        <organize_cloud>false</organize_cloud>
+        <min_range>0.9</min_range>
+        <max_range>50.0</max_range>
+        <gaussian_noise>0.00</gaussian_noise>
       </plugin>
     </sensor>
   </gazebo>

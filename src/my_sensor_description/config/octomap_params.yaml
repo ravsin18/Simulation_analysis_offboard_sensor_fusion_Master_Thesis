@@ -1,0 +1,11 @@
+octomap_raycasting_node_1:
+  ros__parameters:
+    use_sim_time: true
+    target_frame: "map"
+    resolution: 0.1
+    input_topics: [
+      "/lidar_robot/lidar_robot_scan/out",
+      "/camera_robot/camera_robot_sensor/downsampled",
+      "/camera_robot_1/camera_robot_sensor_1/downsampled",
+      "/lidar_robot_1/lidar_robot_scan/out"
+    ]

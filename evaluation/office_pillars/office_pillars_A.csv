@@ -1,0 +1,16 @@
+Metric,Value
+Evaluation Time (s),8725.34
+Completeness (%),88.7668
+Occupied Voxels,8874
+Free Voxels,163173
+Unknown Voxels,21772
+3D True Positives,7387
+3D False Positives,1487
+3D True Negatives,158608
+3D False Negatives,4565
+3D Precision,0.832432
+3D Recall,0.618056
+3D F1-Score,0.709402
+3D IoU,0.549669
+Memory Usage (MB),34.9811
+Callback Time (ms),300

@@ -1,0 +1,6 @@
+# The request is the desired timer duration in seconds
+float64 duration_seconds
+---
+# The response is a confirmation
+bool success
+string message

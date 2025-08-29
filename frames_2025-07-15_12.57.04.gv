@@ -1,0 +1,23 @@
+digraph G {
+"map" -> "camera_robot_camera_optical_frame_noisy"[label=" Broadcaster: default_authority\nAverage rate: 10.588\nBuffer length: 1.7\nMost recent transform: 628.742\nOldest transform: 627.042\n"];
+"camera_robot_base_link" -> "camera_robot_camera_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "camera_robot_base_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"camera_robot_base_link_1" -> "camera_robot_camera_link_1"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "camera_robot_base_link_1"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"camera_robot_camera_link" -> "camera_robot_camera_optical_frame"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"camera_robot_camera_link_1" -> "camera_robot_camera_optical_frame_1"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"lidar_robot_base_link" -> "lidar_robot_lidar_base_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "lidar_robot_base_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"lidar_robot_base_link_1" -> "lidar_robot_lidar_base_link_1"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "lidar_robot_base_link_1"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"lidar_robot_lidar_base_link" -> "lidar_robot_lidar_top_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"lidar_robot_lidar_base_link_1" -> "lidar_robot_lidar_top_link_1"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"map" -> "base_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"map" -> "camera_robot_camera_optical_frame_1_noisy"[label=" Broadcaster: default_authority\nAverage rate: 10.588\nBuffer length: 1.7\nMost recent transform: 628.742\nOldest transform: 627.042\n"];
+"map" -> "lidar_robot_lidar_top_link_noisy"[label=" Broadcaster: default_authority\nAverage rate: 294.706\nBuffer length: 1.7\nMost recent transform: 628.742\nOldest transform: 627.042\n"];
+"map" -> "lidar_robot_lidar_top_link_1_noisy"[label=" Broadcaster: default_authority\nAverage rate: 10.588\nBuffer length: 1.7\nMost recent transform: 628.742\nOldest transform: 627.042\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1752577024.7642195"[ shape=plaintext ] ;
+}->"map";
+}

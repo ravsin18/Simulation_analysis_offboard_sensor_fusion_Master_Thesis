@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <world name="default">
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <plugin name="gazebo_ground_truth_point_cloud"
+            filename="libgazebo_map_creator.so">
+      <ros>
+        <namespace>/ground_truth</namespace>
+      </ros>
+      <frame_name>map</frame_name>
+      <topic_name>/cloud</topic_name>
+      <service_name>get_point_cloud</service_name>
+      <points_per_meter_sq>100</points_per_meter_sq>
+    </plugin>
+  </world>
+</sdf>

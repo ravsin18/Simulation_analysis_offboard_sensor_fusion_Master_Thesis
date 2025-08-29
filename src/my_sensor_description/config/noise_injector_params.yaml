@@ -1,0 +1,30 @@
+noise_injector_node:
+  ros__parameters:
+    use_sim_time: true
+    reference_frame: "map"
+
+    # List of sensor frames to apply a fixed offset to.
+    noisy_sensor_frames: [
+      "lidar_robot_lidar_top_link",
+      "camera_robot_camera_optical_frame",
+      "lidar_robot_lidar_top_link_1",
+      "camera_robot_camera_optical_frame_1"
+    ]
+
+    # Parent parameter for all the offset configurations
+    offsets:
+      lidar_robot_lidar_top_link:
+        pos: [0.05, 0.2, 0.0]
+        rot: [0.0, 0.0, 0.01]
+
+      camera_robot_camera_optical_frame:
+        pos: [-0.01, 0.03, 0.04]
+        rot: [0.02, 0.0, 0.0]
+
+      lidar_robot_lidar_top_link_1:
+        pos: [0.06, 0.0, -0.02]
+        rot: [0.0, -0.015, 0.0]
+      
+      camera_robot_camera_optical_frame_1:
+        pos: [0.0, 0.02, 0.0]
+        rot: [0.01, 0.0, 0.0]

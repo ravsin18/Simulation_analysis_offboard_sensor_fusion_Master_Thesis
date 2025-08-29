@@ -13,6 +13,14 @@
         <param name="use_sim_time" value="$(var use_sim_time)" />
     </node>
 
+    <node pkg="joint_state_publisher" exec="joint_state_publisher" name="joint_state_publisher">
+        <param name="publish_default_positions" value="true" />
+    </node>
+
+    <!-- Replace robot_state_publisher + joint_state_publisher with static transforms -->
+
+
+
     <!-- Start Gazebo -->
     <include file="$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py">
         <arg name="world" value="$(find-pkg-share my_sensor_description)/worlds/test_world_human.world" />
@@ -32,24 +40,44 @@
         <remap from="/image_raw" to="/camera_robot_1/camera_robot_sensor_1/image_raw" />
     </node>-->
 
+
+    <node pkg="my_sensor_description" exec="voxel_filter_node" output="screen">
+        <param name="leaf_size" value="0.2" />
+    </node>
+
+
     <!-- Point Cloud Merger Node -->
-    <!--<node pkg="my_sensor_description" exec="point_cloud_merger_2.py" name="point_cloud_merger" output="screen">
+    <node pkg="my_sensor_description" exec="point_cloud_merger_2.py" name="point_cloud_merger" output="screen">
         <param name="use_sim_time" value="$(var use_sim_time)" />
         <param name="output_topic" value="/merged_sensor_points" />
-        <param name="input_topics" value="[/camera_robot/camera_robot_sensor/points, /camera_robot_1/camera_robot_sensor_1/points, /lidar_robot/lidar_robot_scan/out]" />
-        <param name="output_frame" value="base_link" />
+        <!--<param name="input_topics" value="[/lidar_robot/lidar_robot_scan/out, /camera_robot_1/camera_robot_sensor_1/downsampled, /camera_robot/camera_robot_sensor/downsampled ]" />-->
+        <param name="output_frame" value="map" />
+    </node>
+<!--/camera_robot/camera_robot_sensor/points, /camera_robot_1/camera_robot_sensor_1/points,-->
+    <!--<node pkg="my_sensor_description" exec="voxel_filter_node.py" output="screen">
+        <param name="voxel_size" value="0.1" />
     </node>-->
+    <!--<node pkg="my_sensor_description"
+        exec="python3"
+        name="voxel_filter_node"
+        output="screen"
+        args="/home/singh/ros2_sensor_ws/src/my_sensor_description/scripts/voxel_filter_node.py" />-->
 
 
     <!-- Octomap Server -->
-    <node pkg="octomap_server" exec="octomap_server_node" output="screen">
-        <param name="frame_id" value="base_link" />
+    <node pkg="octomap_server" exec="octomap_server_node" name="octomap_server" output="screen">
+        <remap from="/cloud_in" to="/merged_sensor_points"/>
+        <param name="frame_id" value="map" />
+        <param name="filter_ground_plane" value="false"/>
+        <param name="input_frame" value="map"/>
         <param name="use_sim_time" value="$(var use_sim_time)" />
-        <remap from="/cloud_in" to="/merged_sensor_points" />
+        <param name="input_cloud_topic" value="/merged_sensor_points" />
         <param name="resolution" value="0.1" />
-        <param name="sensor_model/max_range" value="10.0" />
+        <param name="sensor_model/max_range" value="5.0" />
         <param name="sensor_model/hit" value="0.7" />
         <param name="sensor_model/miss" value="0.4" />
         <param name="color_factor" value="1.0" />
+        <param name="latch" value="false" />
+        <param name="debug" value="true" />
     </node>
 </launch>

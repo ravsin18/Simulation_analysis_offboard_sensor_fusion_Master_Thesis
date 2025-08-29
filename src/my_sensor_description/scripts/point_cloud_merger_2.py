@@ -16,12 +16,15 @@ class PointCloudMerger(Node):
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
 
         self.topic_list = [
-            '/camera_robot/camera_robot_sensor/points',
-            '/camera_robot_1/camera_robot_sensor_1/points',
-            '/lidar_robot/lidar_robot_scan/out'
-        ]
-
-        self.target_frame = 'map'
+            '/lidar_robot/lidar_robot_scan/out',
+            '/camera_robot_1/camera_robot_sensor_1/downsampled',
+            '/camera_robot/camera_robot_sensor/downsampled',
+            '/lidar_robot_1/lidar_robot_scan/out'
+             ]
+#'/camera_robot_1/camera_robot_sensor_1/points'
+#'/camera_robot/camera_robot_sensor/points',
+#'/lidar_robot/lidar_robot_scan/out'
+        self.target_frame = 'base_link'
         self.clouds = {}
         self._subs = []
 
@@ -30,7 +33,7 @@ class PointCloudMerger(Node):
             sub = self.create_subscription(PointCloud2, topic, self.make_callback(topic), 10)
             self._subs.append(sub)
 
-        self.pub = self.create_publisher(PointCloud2, '/mergen_sensor_points', 10)
+        self.pub = self.create_publisher(PointCloud2, '/merged_sensor_points', 10)
         self.create_timer(1.0, self.merge_and_publish)  # 1 Hz publishing
 
     def make_callback(self, topic_name):
@@ -66,7 +69,7 @@ class PointCloudMerger(Node):
         ]
         return pc2.create_cloud(cloud.header, fields, points)
 
-    def merge_and_publish(self):
+    '''def merge_and_publish(self):
         if not all(self.clouds.values()):
             self.get_logger().info('Waiting for all clouds...')
             return
@@ -84,6 +87,30 @@ class PointCloudMerger(Node):
 
             self.pub.publish(merged_cloud)
             self.get_logger().info(f'Published merged cloud with {len(all_points)} points')
+        except Exception as e:
+            self.get_logger().error(f"Failed to merge clouds: {e}")'''
+    def merge_and_publish(self):
+        if not all(self.clouds.values()):
+            self.get_logger().info('Waiting for all clouds...')
+            return
+
+        try:
+            all_points = []
+            for cloud in self.clouds.values():
+                # Skip NaN points during merging
+                points = list(pc2.read_points(cloud, field_names=("x", "y", "z"), skip_nans=True))
+                all_points.extend(points)
+
+            header = next(iter(self.clouds.values())).header
+            header.stamp = self.get_clock().now().to_msg()
+            header.frame_id = self.target_frame
+
+            # Create merged cloud and enforce is_dense=True
+            merged_cloud = pc2.create_cloud_xyz32(header, all_points)
+            merged_cloud.is_dense = True  # Critical fix for OctoMap
+
+            self.pub.publish(merged_cloud)
+            self.get_logger().info(f'Published merged cloud with {len(all_points)} points (Dense: {merged_cloud.is_dense})')
         except Exception as e:
             self.get_logger().error(f"Failed to merge clouds: {e}")
 

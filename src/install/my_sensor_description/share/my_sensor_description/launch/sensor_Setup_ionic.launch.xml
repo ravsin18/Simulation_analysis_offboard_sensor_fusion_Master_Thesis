@@ -36,7 +36,7 @@
     <node pkg="octomap_server" exec="octomap_server_node" output="screen">
         <param name="frame_id" value="base_link"/>
         <remap from="/cloud_in" to="/lidar_robot/lidar_robot_scan/out"/>
-        <!--<remap from="/cloud_in" to="/merged_camera_points"/>-->
+        <<remap from="/cloud_in" to="/merged_camera_points"/>
         <param name="resolution" value="0.1"/>
         <!--<param name="frame_id" value="map"/>-->
         
@@ -49,7 +49,7 @@
 
 
 
-    <!--<node pkg="$(find-pkg-share my_sensor_description)/nodes/point_cloud_merger.py" exec="point_cloud_merger" output="screen"/>
--->
+    <node pkg="$(find-pkg-share my_sensor_description)/nodes/point_cloud_merger.py" exec="point_cloud_merger" output="screen"/>
+
 
 </launch>

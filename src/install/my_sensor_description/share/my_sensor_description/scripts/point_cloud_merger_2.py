@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
 import rclpy
-import numpy as np
 from rclpy.node import Node
-from sensor_msgs.msg import PointCloud2
 import sensor_msgs_py.point_cloud2 as pc2
 import tf2_ros
-import tf2_sensor_msgs.tf2_sensor_msgs  #  Needed to register transform support for PointCloud2
 from tf2_sensor_msgs.tf2_sensor_msgs import do_transform_cloud
-from geometry_msgs.msg import TransformStamped
-
-
+from sensor_msgs.msg import PointCloud2, PointField
+from rclpy.time import Time
 
 
 class PointCloudMerger(Node):
@@ -19,98 +15,105 @@ class PointCloudMerger(Node):
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
 
-        self.cloud1 = None
-        self.cloud2 = None
+        self.topic_list = [
+            '/lidar_robot/lidar_robot_scan/out',
+            '/camera_robot_1/camera_robot_sensor_1/downsampled',
+            '/camera_robot/camera_robot_sensor/downsampled',
+            '/lidar_robot_1/lidar_robot_scan/out'
+             ]
+#'/camera_robot_1/camera_robot_sensor_1/points'
+#'/camera_robot/camera_robot_sensor/points',
+#'/lidar_robot/lidar_robot_scan/out'
+        self.target_frame = 'base_link'
+        self.clouds = {}
+        self._subs = []
 
-        self.target_frame = 'map'  # Change to 'odom' or 'base_link' if needed
+        for topic in self.topic_list:
+            self.clouds[topic] = None
+            sub = self.create_subscription(PointCloud2, topic, self.make_callback(topic), 10)
+            self._subs.append(sub)
 
-        self.sub1 = self.create_subscription(
-            PointCloud2,
-            '/camera_robot/camera_robot_sensor/points',
-            self.callback1,
-            10
-        )
+        self.pub = self.create_publisher(PointCloud2, '/merged_sensor_points', 10)
+        self.create_timer(1.0, self.merge_and_publish)  # 1 Hz publishing
 
-        self.sub2 = self.create_subscription(
-            PointCloud2,
-            '/camera_robot_1/camera_robot_sensor_1/points',
-            self.callback2,
-            10
-        )
+    def make_callback(self, topic_name):
+        def callback(msg):
+            try:
+                # Lookup transform at the time of the message
+                transform = self.tf_buffer.lookup_transform(
+                    self.target_frame,
+                    msg.header.frame_id,
+                    rclpy.time.Time()
+                )
 
-        self.pub = self.create_publisher(PointCloud2, '/merged_camera_points', 10)
-        
+                # Strip to only x, y, z for OctoMap compatibility
+                sanitized_cloud = self.strip_to_xyz(msg)
 
-    '''def callback1(self, msg):
-        try:
-            self.cloud1 = self.tf_buffer.transform(msg, self.target_frame, timeout=rclpy.duration.Duration(seconds=0.5))
-            self.merge_and_publish()
-        except Exception as e:
-            self.get_logger().warn(f'Failed to transform cloud1: {e}')
+                # Transform to 'map' frame
+                transformed_cloud = do_transform_cloud(sanitized_cloud, transform)
+                transformed_cloud.header.stamp = self.get_clock().now().to_msg()
+                transformed_cloud.header.frame_id = self.target_frame
 
-    def callback2(self, msg):
-        try:
-            self.cloud2 = self.tf_buffer.transform(msg, self.target_frame, timeout=rclpy.duration.Duration(seconds=0.5))
-            self.merge_and_publish()
-        except Exception as e:
-            self.get_logger().warn(f'Failed to transform cloud2: {e}')'''
-    def callback1(self, msg):
-        try:
-            transform = self.tf_buffer.lookup_transform(
-                self.target_frame,
-                msg.header.frame_id,
-                rclpy.time.Time()
-            )
-            self.cloud1 = do_transform_cloud(msg, transform)
-            self.merge_and_publish()
-        except Exception as e:
-            self.get_logger().warn(f'Failed to transform cloud1: {e}')
+                self.clouds[topic_name] = transformed_cloud
+            except Exception as e:
+                self.get_logger().warn(f'[{topic_name}] Failed to transform: {e}')
+        return callback
 
-    def callback2(self, msg):
-        try:
-            transform = self.tf_buffer.lookup_transform(
-                self.target_frame,
-                msg.header.frame_id,
-                rclpy.time.Time()
-            )
-            self.cloud2 = do_transform_cloud(msg, transform)
-            self.merge_and_publish()
-        except Exception as e:
-            self.get_logger().warn(f'Failed to transform cloud2: {e}')
+    def strip_to_xyz(self, cloud):
+        """Remove all fields except x, y, z for OctoMap."""
+        points = list(pc2.read_points(cloud, field_names=["x", "y", "z"], skip_nans=True))
+        fields = [
+            PointField(name='x', offset=0, datatype=PointField.FLOAT32, count=1),
+            PointField(name='y', offset=4, datatype=PointField.FLOAT32, count=1),
+            PointField(name='z', offset=8, datatype=PointField.FLOAT32, count=1),
+        ]
+        return pc2.create_cloud(cloud.header, fields, points)
 
-    
-
-    def merge_and_publish(self):
-        if self.cloud1 is None or self.cloud2 is None:
+    '''def merge_and_publish(self):
+        if not all(self.clouds.values()):
+            self.get_logger().info('Waiting for all clouds...')
             return
 
-        '''points1 = list(pc2.read_points(self.cloud1, field_names=("x", "y", "z"), skip_nans=True))
-        points2 = list(pc2.read_points(self.cloud2, field_names=("x", "y", "z"), skip_nans=True))
-
-        merged_points = points1 + points2
-        header = self.cloud1.header
-        merged_cloud = pc2.create_cloud_xyz32(header, merged_points)'''
         try:
-            # Extract only x, y, z fields from both point clouds
-            cloud1_points = np.array(list(pc2.read_points(self.cloud1, field_names=("x", "y", "z"), skip_nans=True)))
-            cloud2_points = np.array(list(pc2.read_points(self.cloud2, field_names=("x", "y", "z"), skip_nans=True)))
+            all_points = []
+            for cloud in self.clouds.values():
+                all_points.extend(pc2.read_points(cloud, field_names=("x", "y", "z"), skip_nans=True))
 
-            # Combine the point arrays
-            merged_points = np.vstack((cloud1_points, cloud2_points))
+            header = next(iter(self.clouds.values())).header
+            header.stamp = self.get_clock().now().to_msg()
+            header.frame_id = self.target_frame
 
-            # Create a new PointCloud2 message with xyz only
-            header = self.cloud1.header  # Use one cloud's header
-            merged_cloud_msg = pc2.create_cloud_xyz32(header, merged_points)
+            merged_cloud = pc2.create_cloud_xyz32(header, all_points)
 
-            # Publish the merged cloud
-            self.pub.publish(merged_cloud_msg)
+            self.pub.publish(merged_cloud)
+            self.get_logger().info(f'Published merged cloud with {len(all_points)} points')
+        except Exception as e:
+            self.get_logger().error(f"Failed to merge clouds: {e}")'''
+    def merge_and_publish(self):
+        if not all(self.clouds.values()):
+            self.get_logger().info('Waiting for all clouds...')
+            return
 
+        try:
+            all_points = []
+            for cloud in self.clouds.values():
+                # Skip NaN points during merging
+                points = list(pc2.read_points(cloud, field_names=("x", "y", "z"), skip_nans=True))
+                all_points.extend(points)
+
+            header = next(iter(self.clouds.values())).header
+            header.stamp = self.get_clock().now().to_msg()
+            header.frame_id = self.target_frame
+
+            # Create merged cloud and enforce is_dense=True
+            merged_cloud = pc2.create_cloud_xyz32(header, all_points)
+            merged_cloud.is_dense = True  # Critical fix for OctoMap
+
+            self.pub.publish(merged_cloud)
+            self.get_logger().info(f'Published merged cloud with {len(all_points)} points (Dense: {merged_cloud.is_dense})')
         except Exception as e:
             self.get_logger().error(f"Failed to merge clouds: {e}")
 
-        '''self.pub.publish(merged_cloud)'''
-
-    
 
 def main(args=None):
     rclpy.init(args=args)
@@ -118,6 +121,7 @@ def main(args=None):
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()

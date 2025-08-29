@@ -1,1 +1,1 @@
-rclpy;sensor_msgs;sensor_msgs_py;tf2_ros;tf2_sensor_msgs;tf2_msgs;ament_lint_auto;ament_lint_common
+octomap;octomap_msgs;visualization_msgs;pcl_conversions;libpcl-all-dev;rclcpp;my_sensor_description_interfaces;rclpy;sensor_msgs;sensor_msgs_py;tf2_ros;tf2_sensor_msgs;tf2_msgs;numpy;open3d;opencv4;rosidl_default_runtime;ament_lint_auto;ament_lint_common
