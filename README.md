@@ -2,6 +2,12 @@
 ROS 2 package for environment mapping and evaluation with sensor fusion
 # ROS 2 Sensor Fusion for Environment Mapping
 
+What is this? : A ROS2 simulation environment in Gazebo to generate a probablistic occupancy map using Octomap. 
+
+What does it do? : This Simulation takes input data from 2 LiDAR and 2 Depth-Cameras. The generated occupancy map can be further fused with onboard sensor data of autonomous agent with the help of V2I communications.
+
+Tech Stack:  ROS2, Gazebo, Python, C++, URDF, Octomap, YoloV5
+
 This repository contains the implementation developed for my Master's thesis on  
 A Simulative Analysis of Collaborative Sensor Fusion for Enhanced Environmental Mapping via Off-Board Sensor Integration.  
 
